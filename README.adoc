@@ -12,7 +12,7 @@ endif::[]
 ====
 Rispetto alle specifiche fornite, nell'implementazione del progetto ci sono due modifiche:
 
-- il led stem:[L_s] è di colore giallo invece che rosso;
+- il led `L_s` è di colore giallo invece che rosso;
 - sia i led rossi che i verdi hanno lo stesso ruolo dei led verdi nelle specifiche.
 ====
 
