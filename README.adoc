@@ -6,7 +6,7 @@ endif::[]
 
 = Track the led fly
 
-image::thumbnail.jpg[]
+image::thumbnail.jpg[link=https://vimeo.com/474173507]
 
 [IMPORTANT]
 ====
