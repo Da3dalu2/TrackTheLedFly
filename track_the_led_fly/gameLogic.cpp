@@ -12,7 +12,7 @@ uint32_t tMin;  // microsec
 volatile bool defeat = false;
 
 volatile uint8_t ledPos;
-uint32_t tNextHop;
+uint32_t tNextLeap;
 
 uint8_t currentTRun;
 uint8_t previousTRun;
@@ -78,9 +78,9 @@ void initGame() {
     
     randomSeed(analogRead(A0));
     
-    tNextHop = 0;
+    tNextLeap = 0;
     tMin = STD_TMIN;
-    difficulty = 1;
+    difficulty = MIN_DIFF;
     
     delay(1000);
 
@@ -102,8 +102,8 @@ void runGame() {
     noInterrupts();
     ledPos = putFlyingLed();
     tMin = tMin - (difficulty * 250000);
-    tNextHop = random(tMin, k * tMin);
-    updateTimer(tNextHop, inGameHandler);
+    tNextLeap = random(tMin, k * tMin);
+    updateTimer(tNextLeap, inGameHandler);
     changeBtnISR(startButtonPin, onButtonPress);
     interrupts();
 
@@ -115,7 +115,7 @@ void runGame() {
     Serial.print("[B]: \tNext leap's location: ");
     Serial.println(ledPos);
     Serial.print("[B]: \tTime until next leap: ");
-    Serial.print(tNextHop);
+    Serial.print(tNextLeap);
     Serial.println(" μsec");
 #else
     Serial.flush();
@@ -156,11 +156,9 @@ void setVictory() {
 
     noInterrupts();
     tMin = tMin * 7/8;
-    tNextHop = random(tMin, k * tMin);
+    tNextLeap = random(tMin, k * tMin);
     ledPos = moveFlyingLed(ledPos);
-
-    changeTimerPeriod(tNextHop);
-    
+    changeTimerPeriod(tNextLeap);
     interrupts();
 
     score++;
@@ -171,7 +169,7 @@ void setVictory() {
     Serial.print("[B->C]: Next leap's location: ");
     Serial.println(ledPos);
     Serial.print("[B->C]: Time until next leap: ");
-    Serial.print(tNextHop);
+    Serial.print(tNextLeap);
     Serial.println(" μsec");
     Serial.print("[B->C]: current score: ");
     Serial.println(score);
@@ -224,7 +222,7 @@ void checkReInit() {
         currentTEnd = tEnd;
         interrupts();
         if( currentTEnd != previousTEnd && currentTEnd != 0 )
-            setEndGame(); // FIXME: not always triggered during endgame
+            setEndGame();
     }
 }
 

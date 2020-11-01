@@ -208,10 +208,8 @@ void setupButtons() {
 void updateTimer(uint32_t period, void(*isr)(void)) {
     MiniTimer1.stop();
 
-    if( digitalRead(yellowLedPin) == HIGH ) {
+    if( digitalRead(yellowLedPin) == HIGH )
         digitalWrite(yellowLedPin, LOW);
-        //blinking = true;
-    }
     
     MiniTimer1.setPeriod(period);
     MiniTimer1.detachInterrupt();

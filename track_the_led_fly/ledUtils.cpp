@@ -7,9 +7,9 @@ uint8_t brightness;
 
 uint8_t fadeLed(uint8_t ledPin) {
     brightness = brightness + fadeAmount;
-    if ( brightness == 0 || brightness == 255 ) {
+    if ( brightness == 0 || brightness == 255 )
         fadeAmount = -fadeAmount ;
-    }
+
     return brightness;
 }
 
