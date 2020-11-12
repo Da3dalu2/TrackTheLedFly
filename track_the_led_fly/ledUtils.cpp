@@ -23,19 +23,9 @@ uint8_t moveFlyingLed(uint8_t ledPos) {
     uint8_t newLedPos = ledPos;
 
     if( random(0, 2) == 1 ) {
-        if( newLedPos + 1 >= numberLeds )
-            newLedPos = 0;
-        else
-            newLedPos += 1;
-
-    } else {
-        if( newLedPos - 1 < 0 )
-            newLedPos = numberLeds - 1;
-        else
-            newLedPos -= 1;
-    }
-
-    return newLedPos;
+        return (newLedPos + 1) % numberLeds;
+    else
+        return (newLedPos - 1 + numberLeds) % numberLeds;
 }
 
 uint8_t putFlyingLed() {
